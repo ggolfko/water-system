@@ -24,7 +24,7 @@ class StationController extends Controller {
 
     public function getData()
     {
-        $url="https://api.thingspeak.com/channels/242711/feeds.json?timezone=Asia/Bangkok";
+    $url="https://api.thingspeak.com/channels/242711/feeds.json?timezone=Asia/Bangkok";
     $json=file_get_contents($url);
     $data=json_decode($json); // return response()->json($data);
     $result=count($data->feeds); // for ($i=0; $i < count($data->feeds) ; $i++) {
@@ -38,14 +38,14 @@ class StationController extends Controller {
     //  }
     return view('data') ->with('dataa', $data); // ->with('result',$result);  
     }
-    public function save(Request $request) {
-        if ($request->input('setdate') == 'setdate') {
+
+    public function save(Request $request) {    
+        if ($request->input('select') == 'setdate') {
             $setDate = $request->input('datepicker');
-             return back();
+            //return redirect()->route('data', ['setDate' => $setDate]);
+            session(['setDate' => $setDate]);
+            return back();
         }
-        
-    }
-    public function saves() {
         $url="https://api.thingspeak.com/channels/242711/feeds.json?timezone=Asia/Bangkok";
         $json=file_get_contents($url);
         $data=json_decode($json);
@@ -58,7 +58,6 @@ class StationController extends Controller {
         }
         return back();
     }
-
     public function newsave() {
         $url="https://api.thingspeak.com/channels/258624/feeds.json?timezone=Asia/Bangkok";
         $json=file_get_contents($url);

@@ -18,7 +18,7 @@ Route::get('/home', function () {
 	return view('home');
 });
 
-Route::get('/data','StationController@getData');
+Route::get('/data','StationController@getData')->name('data');
 Route::post('save', 'StationController@save');
 Route::get('/setdate','StationController@setDate');
 

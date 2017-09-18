@@ -2,12 +2,13 @@
 
 
 @section('sidebar')
-    <center>ข้อมูลการวัด <br>
-     {{$setdate or ''}}
+
+    <center>ข้อมูลการวัด {{ session('setDate') or ''}}<br>
+     
     <form action="{{url('save')}}" method="POST">
      {!! csrf_field() !!}
-    <input type="hidden" name="setdate" value="setdate">
-    <p>Date: <input type="text" id="datepicker" name="datepicker" value="{{ old('setdate') }}"></p>
+    <input type="hidden" name="select" value="setdate">
+    <p>Date: <input type="text" id="datepicker" name="datepicker" value="{{ session('setDate') or ''}}"></p>
       <button id="submitButton" name="submitButton" class="btn btn-success">select</button>
     </form>
     <p id="demo"></p>
@@ -49,7 +50,6 @@
   </fieldset>
 </form>
 
-
 <script type="text/javascript">
 
 $( function() {
@@ -58,7 +58,7 @@ $( function() {
 
 
  // Set the date we're counting down to
-var countDownDate = new Date("09/18/2017 14:19:25").getTime();
+var countDownDate = new Date("{{ session('setDate') }} {{ date('H:i:s') }}").getTime();
 // Update the count down every 1 second
 var x = setInterval(function() {
     // Get todays date and time
